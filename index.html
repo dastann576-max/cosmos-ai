@@ -156,7 +156,82 @@
     display:flex; align-items:center; justify-content:center; font-size: 13px; flex-shrink:0; color: var(--text-muted);
   }
 
-  .card-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  /* ===== SLIDER PROJECT ===== */
+  .slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .slider-slide {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 4px 0;
+  }
+
+  .slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .slider-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: rgba(5,5,7,0.85);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .slider-btn:hover {
+    background: rgba(255,255,255,0.12);
+    transform: scale(1.05);
+  }
+
+  .slider-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    padding: 0;
+  }
+
+  .slider-dot.active {
+    background: var(--text);
+    transform: scale(1.25);
+  }
+
+  .slider-dot:hover {
+    background: var(--text-muted);
+  }
+
   .proj-card {
     background: var(--surface); border: 1px solid var(--border-strong); border-radius: 16px;
     padding: 20px 18px; transition: border-color .2s, transform .2s; display:flex; flex-direction:column; gap: 12px; min-height: 150px;
@@ -169,7 +244,6 @@
   }
   .proj-title { font-weight: 700; font-size: 14px; }
   .proj-sub { font-size: 12px; color: var(--text-muted); line-height: 1.5; flex: 1; }
-  .proj-note { font-size: 10.5px; color: var(--text-faint); font-style: italic; }
   .proj-arrow { align-self: flex-end; color: var(--text-faint); font-size: 15px; }
 
   .connect-row { display:flex; flex-direction: column; gap: 12px; }
@@ -231,6 +305,9 @@
     .profile-name { font-size: 22px; }
     .quote-card { min-width: 160px; padding: 14px 16px; }
     .quote-card blockquote { font-size: 12px; }
+    .slider-slide {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 400px) {
@@ -240,6 +317,9 @@
     .quote-card { padding: 12px 14px; min-width: 120px; }
     .quote-card blockquote { font-size: 11px; }
     .quote-meta-row { font-size: 10px; }
+    .slider-slide {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>
 </head>
@@ -340,7 +420,7 @@
         <div class="section-title stagger-item">connect</div>
         <div class="section-rule stagger-item"></div>
         <div class="connect-row">
-          <a class="connect-link stagger-item" href="https://Cosmos-Nexus.vercel.app/" target="_blank">
+          <a class="connect-link stagger-item" href="https://cosmos-tnx.vercel.app/" target="_blank">
             <div class="connect-icon"><i class="fa-solid fa-star"></i></div>
             <div><div class="connect-title">Buka CosmosAI</div><div class="connect-sub">mulai ngobrol sekarang</div></div>
             <div class="connect-arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -402,52 +482,88 @@
       <div class="section-block">
         <div class="section-title stagger-item">My Project</div>
         <div class="section-rule stagger-item"></div>
-        <div class="card-grid">
-          <a class="proj-card stagger-item" href="https://Cosmos-Nexus.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-star"></i></div>
-            <div><div class="proj-title">CosmosAI</div><div class="proj-sub">AI chat assistant</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://pixvaultid.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-box"></i></div>
-            <div><div class="proj-title">PixVault</div><div class="proj-sub">image & asset manager</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://tanzz-promptgenerateid.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-            <div><div class="proj-title">Prompt Generator</div><div class="proj-sub">AI prompt builder</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://tanzzfactsearchid.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <div><div class="proj-title">FactSearch</div><div class="proj-sub">fact checker & search</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://tanzz-hubpages.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-credit-card"></i></div>
-            <div><div class="proj-title">Web Payment</div><div class="proj-sub">payment gateway UI</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://tanzzquizid.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-            <div><div class="proj-title">TanzzQuiz</div><div class="proj-sub">interactive quiz app</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://qrnext-smoky.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-qrcode"></i></div>
-            <div><div class="proj-title">QR Generator</div><div class="proj-sub">generate kode QR cepat</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="https://dev-codez.vercel.app/" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-code"></i></div>
-            <div><div class="proj-title">DEV CODEZ</div><div class="proj-sub">source extractor & viewer</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
-          <a class="proj-card stagger-item" href="#" target="_blank">
-            <div class="proj-icon"><i class="fa-solid fa-images"></i></div>
-            <div><div class="proj-title">PicxHost</div><div class="proj-sub">image hosting</div></div>
-            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </a>
+
+        <!-- ===== SLIDER ===== -->
+        <div class="slider-wrapper">
+          <div class="slider-track" id="sliderTrack">
+            <!-- SLIDE 1 -->
+            <div class="slider-slide">
+              <a class="proj-card" href="https://cosmos-tnx.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-star"></i></div>
+                <div><div class="proj-title">CosmosAI</div><div class="proj-sub">AI chat assistant</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://pixvaultid.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-box"></i></div>
+                <div><div class="proj-title">PixVault</div><div class="proj-sub">image & asset manager</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://tanzzquizid.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                <div><div class="proj-title">TanzzQuiz</div><div class="proj-sub">interactive quiz app</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://qrnext-smoky.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-qrcode"></i></div>
+                <div><div class="proj-title">QR Generator</div><div class="proj-sub">generate kode QR cepat</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://dev-codez.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-code"></i></div>
+                <div><div class="proj-title">Dev Codez</div><div class="proj-sub">source extractor & viewer</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://carifakta-tnz.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div><div class="proj-title">CariFakta</div><div class="proj-sub">fact checker & search</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slider-slide">
+              <a class="proj-card" href="https://passgenerator-tnz.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-key"></i></div>
+                <div><div class="proj-title">Password Generator</div><div class="proj-sub">generate password aman</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://cosmoscalc-tnz.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div><div class="proj-title">Calculator</div><div class="proj-sub">kalkulator sederhana</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://media-downloader-pi.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-download"></i></div>
+                <div><div class="proj-title">Downloader</div><div class="proj-sub">download media dari link</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <a class="proj-card" href="https://tanzz-promptgenerateid.vercel.app/" target="_blank">
+                <div class="proj-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div><div class="proj-title">Prompt Gen</div><div class="proj-sub">AI prompt builder</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <div class="proj-card" style="opacity:0.3;pointer-events:none;">
+                <div class="proj-icon"><i class="fa-regular fa-plus"></i></div>
+                <div><div class="proj-title">Coming Soon</div><div class="proj-sub">project berikutnya</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+              <div class="proj-card" style="opacity:0.3;pointer-events:none;">
+                <div class="proj-icon"><i class="fa-regular fa-plus"></i></div>
+                <div><div class="proj-title">Coming Soon</div><div class="proj-sub">project berikutnya</div></div>
+                <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTROLS: TOMBOL < > + DOTS -->
+        <div class="slider-controls">
+          <button class="slider-btn" id="prevSlide"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="slider-dots" id="sliderDots">
+            <button class="slider-dot active" data-index="0"></button>
+            <button class="slider-dot" data-index="1"></button>
+          </div>
+          <button class="slider-btn" id="nextSlide"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
       </div>
 
@@ -490,7 +606,6 @@
       btn.classList.add("active");
       document.getElementById("panel-" + btn.dataset.tab).classList.add("active");
       
-      // Re-trigger stagger animation after panel switch
       setTimeout(() => {
         document.querySelectorAll('.panel.active .stagger-item').forEach((el, index) => {
           el.style.animation = 'none';
@@ -501,6 +616,37 @@
       }, 100);
       
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  // ---------- SLIDER ----------
+  let currentSlide = 0;
+  const track = document.getElementById('sliderTrack');
+  const slides = track.querySelectorAll('.slider-slide');
+  const totalSlides = slides.length;
+  const dots = document.querySelectorAll('.slider-dot');
+
+  function updateSlider() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+
+  document.getElementById('prevSlide').addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  });
+
+  document.getElementById('nextSlide').addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      currentSlide = parseInt(dot.dataset.index);
+      updateSlider();
     });
   });
 
@@ -544,4 +690,4 @@
   })();
 </script>
 </body>
-  </html>
+ </html>
